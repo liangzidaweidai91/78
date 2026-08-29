@@ -1,8 +1,6 @@
+# 直接继承官方镜像，不做任何修改，不覆盖ENTRYPOINT
 FROM halohub/halo:2.20
-
-ENV HALO_PORT=8090
-ENV HALO_EXTERNAL_URL=""
 
 EXPOSE 8090
 VOLUME ["/root/.halo2"]
-# 不要写CMD、不要写ENTRYPOINT，完全交给官方镜像原生启动脚本
+# ⚠️这里不要写ENTRYPOINT，不要写CMD！保留镜像原始启动脚本！
