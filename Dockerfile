@@ -1,8 +1,10 @@
-FROM halohub/halo:2.26.0
+FROM halohub/halo:2.20
 ENV TZ=Asia/Shanghai
-ENV JAVA_OPTS="-Xms64m -Xmx192m -XX:+UseSerialGC -XX:ParallelGCThreads=1 -XX:CICompilerCount=2"
+# JVM参数：堆256M，元空间锁死，串行GC（单核低CPU），限制RAM感知，OOM直接退出
+ENV JAVA_OPTS="-Xms128m -Xmx256m -XX:MaxMetaspaceSize=128m -XX:+UseSerialGC -XX:MaxRAM=384m -XX:+ExitOnOutOfMemoryError"
 ENV HALO_SECURITY_REDIRECT=true
 ENV SERVER_FORWARD=true
+# 大量关闭日志，减少IO与CPU
 ENV LOGGING_LEVEL_IO_R2DBC_H2=ERROR
 ENV LOGGING_ROOT_LEVEL=WARN
 VOLUME ["/root/.halo2"]
